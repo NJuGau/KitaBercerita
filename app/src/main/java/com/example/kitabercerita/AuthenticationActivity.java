@@ -10,23 +10,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class AuthenticationActivity extends AppCompatActivity {
+
+    //NOTES: Temporary, option menu will be unlocked if user has logged in
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         Intent intent = null;
-        switch(itemId){
-            case R.id.homeMenu:
-                intent = new Intent(this.getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.searchMenu:
-                intent = new Intent(this.getApplicationContext(), SearchPostActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.profileMenu:
-                intent = new Intent(this.getApplicationContext(), ProfileViewActivity.class);
-                startActivity(intent);
-                break;
+        if(itemId == R.id.homeMenu) {
+            intent = new Intent(this.getApplicationContext(), HomeActivity.class);
+            startActivity(intent);
+        }else if(itemId == R.id.searchMenu) {
+            intent = new Intent(this.getApplicationContext(), SearchPostActivity.class);
+            startActivity(intent);
+        }else if (itemId == R.id.profileMenu) {
+            intent = new Intent(this.getApplicationContext(), ProfileViewActivity.class);
+            startActivity(intent);
         }
         return true;
     }

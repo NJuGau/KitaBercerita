@@ -42,4 +42,8 @@ public class Post {
     public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
     }
+
+    public int getCommentCount(){
+        return 0;
+    }
 }

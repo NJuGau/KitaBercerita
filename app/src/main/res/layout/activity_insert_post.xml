@@ -6,4 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".InsertPostActivity">
 
+    <TextView
+        android:id="@+id/newPostTitleTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="40dp"
+        android:text="Make New Post"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/postDescriptionFld"
+        android:layout_width="334dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newPostTitleTxt" />
+
+    <Button
+        android:id="@+id/insertPostSubmitBtn"
+        android:layout_width="341dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="64dp"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postDescriptionFld" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

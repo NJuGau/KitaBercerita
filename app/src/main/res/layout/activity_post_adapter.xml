@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/titleTxt"
+            android:id="@+id/userTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Username" />
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/postTextGroup">
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/likeBtn"
             android:layout_width="31dp"
             android:layout_height="29dp"
             android:src="@android:drawable/star_big_off"
@@ -68,7 +68,7 @@
             android:text="likeCount" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/commentBtn"
             android:layout_width="26dp"
             android:layout_height="25dp"
             android:src="@android:drawable/checkbox_off_background"
@@ -83,7 +83,7 @@
             android:text="commentCount" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/shareBtn"
             android:layout_width="33dp"
             android:layout_height="match_parent"
             android:src="@android:drawable/ic_menu_share"

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adapter.PostAdapter">
+
+
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/postTextGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/titleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username" />
+
+        <TextView
+            android:id="@+id/descriptionTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/postFunctionGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+        app:layout_constraintTop_toBottomOf="@+id/postTextGroup">
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="31dp"
+            android:layout_height="29dp"
+            android:src="@android:drawable/star_big_off"
+            tools:layout_editor_absoluteX="109dp"
+            tools:layout_editor_absoluteY="88dp" />
+
+        <TextView
+            android:id="@+id/likeCountTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="likeCount" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="26dp"
+            android:layout_height="25dp"
+            android:src="@android:drawable/checkbox_off_background"
+            tools:layout_editor_absoluteX="204dp"
+            tools:layout_editor_absoluteY="88dp" />
+
+        <TextView
+            android:id="@+id/commentCountTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="commentCount" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="33dp"
+            android:layout_height="match_parent"
+            android:src="@android:drawable/ic_menu_share"
+            tools:layout_editor_absoluteX="291dp"
+            tools:layout_editor_absoluteY="83dp" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

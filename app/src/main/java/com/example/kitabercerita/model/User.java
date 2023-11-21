@@ -1,6 +1,7 @@
 package com.example.kitabercerita.model;
 
 public class User {
+    private static User currentUser;
     private int userId;
     private String username;
     private String email;
@@ -16,6 +17,14 @@ public class User {
         this.status = status;
         this.phoneNumber = phoneNumber;
         this.image = image;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        User.currentUser = currentUser;
     }
 
     public int getUserId() {

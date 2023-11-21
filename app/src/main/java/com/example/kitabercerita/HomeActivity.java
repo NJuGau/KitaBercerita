@@ -69,6 +69,10 @@ public class HomeActivity extends AppCompatActivity {
         ArrayList<Post> postList = new ArrayList<>();
         //TODO: insert data to postList using Firebase
 
+        postList.add(new Post("lololol", 1));
+        postList.add(new Post("lululul", 2));
+        postList.add(new Post("lelelel", 1));
+
         postView.setLayoutManager(new LinearLayoutManager(this));
         postView.setAdapter(new PostAdapter(this, postList));
     }

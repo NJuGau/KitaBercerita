@@ -41,8 +41,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = posts.get(position);
         holder.descriptionTxt.setText(post.getDescription());
-        holder.likeCountTxt.setText(post.getLikeCount());
-        holder.commentCountTxt.setText(post.getCommentCount());
+        holder.likeCountTxt.setText(post.getLikeCount().toString());
+        holder.commentCountTxt.setText(post.getCommentCount().toString());
     }
 
     @Override

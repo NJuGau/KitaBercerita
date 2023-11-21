@@ -7,8 +7,10 @@ public class Post {
     private Integer likeCount;
 
     public Post(String description, int userId) {
+        //TODO: generate postId
         this.description = description;
         this.userId = userId;
+        this.likeCount = 0;
     }
 
     public int getPostId() {
@@ -43,7 +45,7 @@ public class Post {
         this.likeCount = likeCount;
     }
 
-    public int getCommentCount(){
+    public Integer getCommentCount(){
         return 0;
     }
 }

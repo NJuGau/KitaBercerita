@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.kitabercerita.model.Post;
+import com.example.kitabercerita.model.User;
+
 public class InsertPostActivity extends AppCompatActivity {
 
     EditText postDescriptionFld;
@@ -24,8 +27,8 @@ public class InsertPostActivity extends AppCompatActivity {
         postSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Insert Post data to firebase
-
+                Post post = new Post(postDescriptionFld.getText().toString(), User.getCurrentUser().getUserId());
+                //TODO: Upload data to firebase
                 Intent intent = new Intent(InsertPostActivity.this, HomeActivity.class);
                 startActivity(intent);
             }

@@ -35,8 +35,8 @@
 
         <TextView
             android:id="@+id/descriptionTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="275dp"
+            android:layout_height="33dp"
             android:text="Description"
             android:textSize="10dp" />
 
@@ -58,14 +58,16 @@
             android:layout_height="29dp"
             android:src="@android:drawable/star_big_off"
             tools:layout_editor_absoluteX="109dp"
-            tools:layout_editor_absoluteY="88dp" />
+            tools:layout_editor_absoluteY="88dp"
+            android:layout_marginEnd="10dp"/>
 
         <TextView
             android:id="@+id/likeCountTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="likeCount" />
+            android:text="likeCount"
+            android:layout_marginEnd="20dp"/>
 
         <ImageButton
             android:id="@+id/commentBtn"
@@ -73,14 +75,16 @@
             android:layout_height="25dp"
             android:src="@android:drawable/checkbox_off_background"
             tools:layout_editor_absoluteX="204dp"
-            tools:layout_editor_absoluteY="88dp" />
+            tools:layout_editor_absoluteY="88dp"
+            android:layout_marginEnd="10dp"/>
 
         <TextView
             android:id="@+id/commentCountTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="commentCount" />
+            android:text="commentCount"
+            android:layout_marginEnd="20dp"/>
 
         <ImageButton
             android:id="@+id/shareBtn"

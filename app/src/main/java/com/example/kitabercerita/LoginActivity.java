@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class AuthenticationActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     //NOTES: Temporary, option menu will be unlocked if user has logged in
     @Override
@@ -38,6 +38,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_authentication);
+        setContentView(R.layout.activity_login);
     }
 }

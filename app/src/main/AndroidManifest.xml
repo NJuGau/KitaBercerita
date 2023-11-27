@@ -19,9 +19,6 @@
             android:name=".SearchPostActivity"
             android:exported="false" />
         <activity
-            android:name=".PostAdapter"
-            android:exported="false" />
-        <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity

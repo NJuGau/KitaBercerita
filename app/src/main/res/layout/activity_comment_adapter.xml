@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/profileImageView"
+        android:id="@+id/commentProfileImageView"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginStart="32dp"
@@ -18,24 +18,24 @@
         tools:src="@tools:sample/avatars" />
 
     <LinearLayout
-        android:id="@+id/postTextGroup"
+        android:id="@+id/commentPostTextGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="28dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+        app:layout_constraintStart_toEndOf="@+id/commentProfileImageView"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/userTxt"
+            android:id="@+id/commentUserTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Username"
-            android:textSize="8dp"/>
+            android:textSize="10dp"/>
 
         <TextView
-            android:id="@+id/descriptionTxt"
+            android:id="@+id/commentDescriptionTxt"
             android:layout_width="275dp"
             android:layout_height="33dp"
             android:text="Description"
@@ -44,17 +44,17 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/postFunctionGroup"
+        android:id="@+id/commentPostFunctionGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@+id/profileImageView"
-        app:layout_constraintTop_toBottomOf="@+id/postTextGroup">
+        app:layout_constraintStart_toEndOf="@+id/commentProfileImageView"
+        app:layout_constraintTop_toBottomOf="@+id/commentPostTextGroup">
 
         <ImageButton
-            android:id="@+id/likeBtn"
+            android:id="@+id/commentLikeBtn"
             android:layout_width="31dp"
             android:layout_height="29dp"
             android:src="@android:drawable/star_big_off"
@@ -63,37 +63,12 @@
             android:layout_marginEnd="10dp"/>
 
         <TextView
-            android:id="@+id/likeCountTxt"
+            android:id="@+id/commentLikeCountTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="likeCount"
             android:layout_marginEnd="20dp"/>
-
-        <ImageButton
-            android:id="@+id/commentBtn"
-            android:layout_width="26dp"
-            android:layout_height="25dp"
-            android:src="@android:drawable/checkbox_off_background"
-            tools:layout_editor_absoluteX="204dp"
-            tools:layout_editor_absoluteY="88dp"
-            android:layout_marginEnd="10dp"/>
-
-        <TextView
-            android:id="@+id/commentCountTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="commentCount"
-            android:layout_marginEnd="20dp"/>
-
-        <ImageButton
-            android:id="@+id/shareBtn"
-            android:layout_width="33dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_share"
-            tools:layout_editor_absoluteX="291dp"
-            tools:layout_editor_absoluteY="83dp" />
     </LinearLayout>
 
 

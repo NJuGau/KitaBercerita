@@ -24,5 +24,19 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         likeBtn = itemView.findViewById(R.id.likeBtn);
         commentBtn = itemView.findViewById(R.id.commentBtn);
         shareBtn = itemView.findViewById(R.id.shareBtn);
+
+        commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }

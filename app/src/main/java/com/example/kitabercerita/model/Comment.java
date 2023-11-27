@@ -3,7 +3,7 @@ package com.example.kitabercerita.model;
 public class Comment {
     private int commentId;
     private String description;
-    private int likeCount;
+    private Integer likeCount;
     private int userId;
     private int postId;
 
@@ -11,6 +11,7 @@ public class Comment {
         this.description = description;
         this.userId = userId;
         this.postId = postId;
+        this.likeCount = 0;
     }
 
     public int getCommentId() {
@@ -29,11 +30,11 @@ public class Comment {
         this.description = description;
     }
 
-    public int getLikeCount() {
+    public Integer getLikeCount() {
         return likeCount;
     }
 
-    public void setLikeCount(int likeCount) {
+    public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
     }
 

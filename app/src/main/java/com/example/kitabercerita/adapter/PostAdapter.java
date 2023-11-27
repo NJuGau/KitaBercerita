@@ -40,9 +40,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = posts.get(position);
+//        holder.userTxt.setText(); //Add user name
         holder.descriptionTxt.setText(post.getDescription());
         holder.likeCountTxt.setText(post.getLikeCount().toString());
         holder.commentCountTxt.setText(post.getCommentCount().toString());
+        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                post.setLikeCount(post.getLikeCount()+1);
+            }
+        });
     }
 
     @Override

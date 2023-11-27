@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return true;
+        //test -kp
     }
 
     @Override

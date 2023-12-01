@@ -1,5 +1,6 @@
 package com.example.kitabercerita.adapter;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
     ImageView profileImageView;
     TextView userTxt, descriptionTxt, likeCountTxt;
     ImageButton likeBtn;
+
     public CommentViewHolder(@NonNull View itemView) {
         super(itemView);
         profileImageView = itemView.findViewById(R.id.commentProfileImageView);
@@ -22,4 +24,5 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
         likeCountTxt = itemView.findViewById(R.id.commentLikeCountTxt);
         likeBtn = itemView.findViewById(R.id.commentLikeBtn);
     }
+
 }

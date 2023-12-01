@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.kitabercerita.adapter.ClickListener;
 import com.example.kitabercerita.adapter.PostAdapter;
 import com.example.kitabercerita.model.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,8 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements ClickListener {
 
+    private ArrayList<Post> postList;
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
@@ -67,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         //recycler view bind
-        ArrayList<Post> postList = new ArrayList<>();
+        postList = new ArrayList<>();
         //TODO: insert data to postList using Firebase
 
         postList.add(new Post("lololol", 1));
@@ -75,6 +77,16 @@ public class HomeActivity extends AppCompatActivity {
         postList.add(new Post("lelelel", 1));
 
         postView.setLayoutManager(new LinearLayoutManager(this));
-        postView.setAdapter(new PostAdapter(this, postList));
+        PostAdapter adapter = new PostAdapter(this, postList);
+        adapter.setClickListener(this);
+        postView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        System.out.println(position + " is clicked!");
+        Intent i = new Intent(HomeActivity.this, PostDetailActivity.class);
+        i.putExtra("postId", postList.get(position).getPostId());
+        startActivity(i);
     }
 }

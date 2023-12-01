@@ -11,6 +11,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.example.kitabercerita.R;
@@ -21,8 +22,9 @@ import java.util.zip.Inflater;
 
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
-    Context context;
-    List<Post> posts;
+    private Context context;
+    private List<Post> posts;
+    private ClickListener clickListener;
 
     public PostAdapter(Context context, List<Post> posts){
         this.context = context;
@@ -34,19 +36,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.activity_post_adapter, parent, false);
-        return new PostViewHolder(view);
+        return new PostViewHolder(view, clickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = posts.get(position);
-        holder.descriptionTxt.setText(post.getDescription());
-        holder.likeCountTxt.setText(post.getLikeCount().toString());
-        holder.commentCountTxt.setText(post.getCommentCount().toString());
+//        holder.userTxt.setText(); //Add user name
+        holder.getDescriptionTxt().setText(post.getDescription());
+        holder.getLikeCountTxt().setText(post.getLikeCount().toString());
+        holder.getCommentCountTxt().setText(post.getCommentCount().toString());
+        holder.getLikeBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                post.setLikeCount(post.getLikeCount()+1);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return posts.size();
+    }
+
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 }

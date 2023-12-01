@@ -1,9 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileViewActivity">
+    tools:context=".ProfileViewActivity"
+    android:orientation="vertical"
+    android:gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--  profile picture, nama, status  -->
+    <!--  button: edit profile, logout  -->
+
+    <!--  edit profile: pake popup  -->
+    <!--  logout -> clear cache, intent to login page  -->
+
+    <ImageView
+        android:id="@+id/ppIv"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:src="@drawable/nopp"
+        android:layout_marginTop="64dp"
+        />
+
+    <TextView
+        android:id="@+id/nameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:text="Nama"
+        android:textSize="24sp"
+        android:layout_marginTop="24dp"
+        />
+<!--nama ambil dari database-->
+
+    <TextView
+        android:id="@+id/statusTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Status"
+        android:textSize="16sp"
+        android:layout_marginTop="12dp"/>
+    <!-- ambil dr database jg -->
+
+    <Button
+        android:id="@+id/editProfileBtn"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:text="Edit Profile" />
+
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:text="Log out"
+        android:layout_marginBottom="64dp"/>
+</LinearLayout>

@@ -1,25 +1,18 @@
 package com.example.kitabercerita.model;
 
 public class Comment {
-    private int commentId;
+    private String commentId;
     private String description;
     private Integer likeCount;
-    private int userId;
-    private int postId;
+    private String userId;
+    private String postId;
 
-    public Comment(String description, int userId, int postId) {
+    public Comment(String commentId, String description, String userId, String postId) {
+        this.commentId = commentId;
         this.description = description;
         this.userId = userId;
         this.postId = postId;
         this.likeCount = 0;
-    }
-
-    public int getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
     }
 
     public String getDescription() {
@@ -38,19 +31,27 @@ public class Comment {
         this.likeCount = likeCount;
     }
 
-    public int getUserId() {
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public int getPostId() {
+    public String getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(String postId) {
         this.postId = postId;
     }
 }

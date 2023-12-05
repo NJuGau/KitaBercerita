@@ -75,9 +75,9 @@ public class PostDetailActivity extends AppCompatActivity {
         commentCountTxt.setText("1");
 
         commentList = new ArrayList<>();
-        commentList.add(new Comment("haloooo", 2, 1));
-        commentList.add(new Comment("sfsdfdsjfndsklf", 1, 1));
-        commentList.add(new Comment("231i3n12kj3n", 3, 1));
+        commentList.add(new Comment("129031209381293","haloooo", "129031209381293", "129031209381293"));
+        commentList.add(new Comment("129031209381293","sfsdfdsjfndsklf", "129031209381293", "129031209381293"));
+        commentList.add(new Comment("129031209381293","231i3n12kj3n", "129031209381293", "129031209381293"));
 
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommentAdapter adapter = new CommentAdapter(this, commentList);

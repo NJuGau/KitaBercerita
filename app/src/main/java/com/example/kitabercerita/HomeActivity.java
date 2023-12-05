@@ -72,9 +72,9 @@ public class HomeActivity extends AppCompatActivity implements ClickListener {
         postList = new ArrayList<>();
         //TODO: insert data to postList using Firebase
 
-        postList.add(new Post("lololol", 1));
-        postList.add(new Post("lululul", 2));
-        postList.add(new Post("lelelel", 1));
+        postList.add(new Post("129031209381293","lololol", "129031209381293"));
+        postList.add(new Post("afkhdsif8ew9fcs","lululul", "129031209381293"));
+        postList.add(new Post("sdufhsduf89sfs9","lelelel", "129031209381293"));
 
         postView.setLayoutManager(new LinearLayoutManager(this));
         PostAdapter adapter = new PostAdapter(this, postList);

@@ -27,7 +27,7 @@ public class InsertPostActivity extends AppCompatActivity {
         postSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Post post = new Post(postDescriptionFld.getText().toString(), User.getCurrentUser().getUserId());
+                Post post = new Post("129031209381293",postDescriptionFld.getText().toString(), User.getCurrentUser().getUserId());
                 //TODO: Upload data to firebase
                 Intent intent = new Intent(InsertPostActivity.this, HomeActivity.class);
                 startActivity(intent);

@@ -7,10 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.kitabercerita.adapter.PostAdapter;
 import com.example.kitabercerita.adapter.Search_top3Adapter;
@@ -43,11 +48,30 @@ public class SearchPostActivity extends AppCompatActivity {
         inf.inflate(R.menu.option_menu,menu);
         return true;
     }
-
+    EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_post);
 
+        EditText editText = findViewById(R.id.searchedittext);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    // User pressed the Enter key, start the new activity
+                    String userInput = editText.getText().toString();
+
+                    Log.d("SearchPostActivity", "User Input: " + userInput);
+
+                    Intent intent = new Intent(SearchPostActivity.this, SearchPost2Activity.class);
+                    intent.putExtra("userInput", userInput);
+                    startActivity(intent);
+
+                    return true; // Consume the event
+                }
+                return false; // Let the system handle the event
+            }
+        });
     }
 }

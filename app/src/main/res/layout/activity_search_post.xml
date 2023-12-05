@@ -15,11 +15,12 @@
     tools:context=".SearchPostActivity">
 
     <EditText
+        android:id="@+id/searchedittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_border"
         android:drawableStart="@drawable/searchlogo"
-        android:hint="Cari"
+        android:hint="     Cari"
         android:minHeight="48dp"
         android:paddingVertical="10dp" />
     <TextView

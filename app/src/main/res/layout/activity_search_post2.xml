@@ -6,4 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".SearchPost2Activity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchpostView"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

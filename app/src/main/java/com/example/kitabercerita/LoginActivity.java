@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.example.kitabercerita.model.User;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText Email, Password;
@@ -49,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         Email = findViewById(R.id.editTextTextEmailAddress2);
         Password = findViewById(R.id.editTextTextPassword2);
         Login = findViewById(R.id.LoginBtn);

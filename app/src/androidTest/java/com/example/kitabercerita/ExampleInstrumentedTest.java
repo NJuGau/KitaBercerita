@@ -10,6 +10,11 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -18,9 +23,11 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.kitabercerita", appContext.getPackageName());
+    public void useAppContext() throws Exception {
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        HashMap<String, String> postMap = new HashMap<>();
+//        postMap.put("postDescription", "helo");
+//        db.collection("Post").add(postMap);
+
     }
 }

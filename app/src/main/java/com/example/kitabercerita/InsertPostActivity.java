@@ -52,7 +52,7 @@ public class InsertPostActivity extends AppCompatActivity {
                 postMap.put("postDescription", "postDescriptionFld.getText().toString()");
                 postMap.put("postUserId", "User.getCurrentUser().getUserId()");
 
-                db = FirebaseDatabase.getInstance("https://testproject-55bd7-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                db = FirebaseDatabase.getInstance("https://mobile-78ad2-default-rtdb.asia-southeast1.firebasedatabase.app/");
                 rf = db.getReference("Post");
                 rf.child(postDescriptionFld.getText().toString()).setValue(postMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.KitaBercerita"
         tools:targetApi="31">
         <activity
+            android:name=".InsertCommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".adapter.CommentAdapter"
             android:exported="false" />
         <activity
@@ -35,6 +38,9 @@
             android:exported="false" />
         <activity
             android:name=".InsertPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchPost2Activity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

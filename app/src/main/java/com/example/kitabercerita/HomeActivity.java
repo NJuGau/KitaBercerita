@@ -16,6 +16,7 @@ import com.example.kitabercerita.adapter.ClickListener;
 import com.example.kitabercerita.adapter.PostAdapter;
 import com.example.kitabercerita.model.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -59,6 +60,8 @@ public class HomeActivity extends AppCompatActivity implements ClickListener {
         postView = findViewById(R.id.homePostView);
         gotoInsertPostBtn = findViewById(R.id.gotoInsertPostBtn);
 
+//        FirebaseAuth.getInstance().signInWithEmailAndPassword("test@gmail.com", "test123");
+
         //go to insert post
         gotoInsertPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +75,9 @@ public class HomeActivity extends AppCompatActivity implements ClickListener {
         postList = new ArrayList<>();
         //TODO: insert data to postList using Firebase
 
-        postList.add(new Post("129031209381293","lololol", "129031209381293"));
+        postList.add(new Post("129031209381293","lololol" +
+                "xcxzczxczxczxczxczxc" +
+                "zxczxczxczxc", "129031209381293"));
         postList.add(new Post("afkhdsif8ew9fcs","lululul", "129031209381293"));
         postList.add(new Post("sdufhsduf89sfs9","lelelel", "129031209381293"));
 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.kitabercerita.adapter.CommentAdapter;
 import com.example.kitabercerita.model.Comment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -47,11 +49,11 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private ImageView profileImg;
-    private TextView userTxt, descriptionTxt, likeCountTxt, commentCountTxt;
+    private TextView userTxt, descriptionTxt, likeCountTxt, commentCountTxt, backBtn;
     private ImageButton likeBtn, commentBtn, shareBtn;
     private RecyclerView commentRecyclerView;
     private ArrayList<Comment> commentList;
-
+    private Button gotoInsertCommentBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,8 @@ public class PostDetailActivity extends AppCompatActivity {
         commentBtn = findViewById(R.id.detailCommentBtn);
         shareBtn = findViewById(R.id.detailShareBtn);
         commentRecyclerView = findViewById(R.id.commentRecyclerView);
+        gotoInsertCommentBtn = findViewById(R.id.gotoInsertCommentBtn);
+        backBtn = findViewById(R.id.detailBackBtn);
 
         //TODO: get data from database
 
@@ -82,5 +86,20 @@ public class PostDetailActivity extends AppCompatActivity {
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommentAdapter adapter = new CommentAdapter(this, commentList);
         commentRecyclerView.setAdapter(adapter);
+
+        gotoInsertCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PostDetailActivity.this, InsertCommentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }

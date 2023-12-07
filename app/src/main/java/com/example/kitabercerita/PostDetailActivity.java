@@ -118,13 +118,16 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
                 Log.d("CommentGetter", "processing");
                 commentList.clear();
                 for(DataSnapshot sn : snapshot.getChildren()){
-                    String commentId = sn.getKey().toString();
-//                    Log.d("CommentGetter", commentId);
-                    String commentDescription = sn.child("commentDescription").getValue(String.class);
-                    String commentUserId = sn.child("commentUserId").getValue(String.class);
                     String commentPostId = sn.child("commentPostId").getValue(String.class);
-                    Integer likeCount = sn.child("commentLikeCount").getValue(Integer.class);
-                    commentList.add(new Comment(commentId, commentDescription, commentUserId, commentPostId, likeCount));
+                    if(commentPostId.equals(postId)){
+                        String commentId = sn.getKey().toString();
+//                    Log.d("CommentGetter", commentId);
+                        String commentDescription = sn.child("commentDescription").getValue(String.class);
+                        String commentUserId = sn.child("commentUserId").getValue(String.class);
+
+                        Integer likeCount = sn.child("commentLikeCount").getValue(Integer.class);
+                        commentList.add(new Comment(commentId, commentDescription, commentUserId, commentPostId, likeCount));
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }

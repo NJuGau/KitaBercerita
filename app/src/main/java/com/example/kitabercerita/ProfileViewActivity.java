@@ -19,11 +19,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ProfileViewActivity extends AppCompatActivity {
 
     ImageView ppIv;
     TextView nameTv, statusTv;
     Button editBtn, logoutBtn;
+    DatabaseReference rf;
+    String sender;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -67,9 +75,27 @@ public class ProfileViewActivity extends AppCompatActivity {
         nameTv = findViewById(R.id.nameTv);
         statusTv = findViewById(R.id.statusTv);
 
-        //ambil dari db
-//        nameTv.setText();
-//        statusTv.setText();
+        Intent intent = getIntent();
+        if (intent != null) {
+            sender = intent.getStringExtra("EXTRA_MESSAGE");
+
+            if (sender != null) {
+                //ambil dari db
+                rf = FirebaseDatabase.getInstance().getReference().child("User").child(sender);
+                rf.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot sn) {
+                        nameTv.setText(sn.child("username").getValue(String.class));
+                        statusTv.setText(sn.child("status").getValue(String.class));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        }
 
         //button
         editBtn = findViewById(R.id.editProfileBtn);

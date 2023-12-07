@@ -19,10 +19,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     Context context;
     List<Comment> comments;
+    CommentClickListener clickListener;
 
-    public CommentAdapter(Context context, List<Comment> comments){
+    public CommentAdapter(Context context, List<Comment> comments, CommentClickListener listener){
         this.context = context;
         this.comments = comments;
+        this.clickListener = listener;
     }
 
     @NonNull
@@ -30,13 +32,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.activity_comment_adapter, parent, false);
-        return new CommentViewHolder(view);
+        return new CommentViewHolder(view, clickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment  = comments.get(position);
-//        holder.userTxt.setText(); //Add user name
+        holder.userTxt.setText(comment.getUserId()); //TODO:Add user name
         holder.descriptionTxt.setText(comment.getDescription());
         holder.likeCountTxt.setText(comment.getLikeCount().toString());
     }

@@ -10,9 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.example.kitabercerita.adapter.ClickListener;
 import com.example.kitabercerita.adapter.PostAdapter;
 import com.example.kitabercerita.model.Post;
 
@@ -30,9 +28,9 @@ public class SearchPost2Activity extends AppCompatActivity{
         postList = new ArrayList<>();
         //TODO: insert data to postList using Firebase
 
-        postList.add(new Post("129031209381293","lololol", "129031209381293"));
-        postList.add(new Post("afkhdsif8ew9fcs","lululul", "129031209381293"));
-        postList.add(new Post("sdufhsduf89sfs9","lelelel", "129031209381293"));
+        postList.add(new Post("129031209381293","lololol", "129031209381293", 0, 0));
+        postList.add(new Post("afkhdsif8ew9fcs","lululul", "129031209381293", 0, 0));
+        postList.add(new Post("sdufhsduf89sfs9","lelelel", "129031209381293", 0, 0));
 
         postView.setLayoutManager(new LinearLayoutManager(this));
         PostAdapter adapter = new PostAdapter(this, postList);

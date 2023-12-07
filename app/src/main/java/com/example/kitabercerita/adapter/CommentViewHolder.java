@@ -16,13 +16,20 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
     TextView userTxt, descriptionTxt, likeCountTxt;
     ImageButton likeBtn;
 
-    public CommentViewHolder(@NonNull View itemView) {
+    public CommentViewHolder(@NonNull View itemView, CommentClickListener listener) {
         super(itemView);
         profileImageView = itemView.findViewById(R.id.commentProfileImageView);
         userTxt = itemView.findViewById(R.id.commentUserTxt);
         descriptionTxt = itemView.findViewById(R.id.commentDescriptionTxt);
         likeCountTxt = itemView.findViewById(R.id.commentLikeCountTxt);
         likeBtn = itemView.findViewById(R.id.commentLikeBtn);
+
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null) listener.onClickLikeBtn(view, getAdapterPosition());
+            }
+        });
     }
 
 }

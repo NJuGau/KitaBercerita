@@ -1,8 +1,7 @@
 package com.example.kitabercerita.adapter;
 
-import android.content.Intent;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,13 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kitabercerita.R;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class PostViewHolder extends RecyclerView.ViewHolder {
     private ImageView profileImageView;
     private TextView userTxt, descriptionTxt, likeCountTxt, commentCountTxt;
     private ImageButton likeBtn, commentBtn, shareBtn;
-    private ClickListener clickListener;
-    public PostViewHolder(@NonNull View itemView, ClickListener listener) {
+    private PostClickListener clickListener;
+
+    public PostViewHolder(@NonNull View itemView, PostClickListener listener) {
         super(itemView);
         clickListener = listener;
         profileImageView = itemView.findViewById(com.example.kitabercerita.R.id.profileImageView);
@@ -25,14 +26,21 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         descriptionTxt = itemView.findViewById(R.id.descriptionTxt);
         likeCountTxt = itemView.findViewById(R.id.likeCountTxt);
         commentCountTxt = itemView.findViewById(R.id.commentCountTxt);
-        likeBtn = itemView.findViewById(R.id.likeBtn);
+        likeBtn = itemView.findViewById(R.id.postLikeBtn);
         commentBtn = itemView.findViewById(R.id.commentBtn);
         shareBtn = itemView.findViewById(R.id.shareBtn);
 
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("PostViewHolder", "Clicked like btn");
+                if(clickListener != null) clickListener.onClickLikeBtn(view, getAdapterPosition());
+            }
+        });
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(clickListener != null) clickListener.onClick(view, getAdapterPosition());
+                if(clickListener != null) clickListener.onClickCommentBtn(view, getAdapterPosition());
             }
         });
 
@@ -42,11 +50,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
             }
         });
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (clickListener != null) clickListener.onClick(view, getAdapterPosition());
     }
 
     public ImageView getProfileImageView() {

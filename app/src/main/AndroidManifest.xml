@@ -42,7 +42,7 @@
             android:name=".InsertPostActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchPost2Activity"
+            android:name=".SearchPostResultActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

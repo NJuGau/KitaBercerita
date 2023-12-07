@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Post {
+public class Post implements Comparable<Post> {
     private String postId;
     private String description;
     private String userId;
@@ -73,5 +73,10 @@ public class Post {
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
+    }
+
+    @Override
+    public int compareTo(Post post) {
+        return post.getLikeCount() - this.likeCount;
     }
 }

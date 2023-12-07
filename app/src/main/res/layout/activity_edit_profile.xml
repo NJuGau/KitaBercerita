@@ -8,14 +8,15 @@
     android:columnCount="2"
     tools:context=".EditProfileActivity">
 
-    <Button
+    <TextView
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_row="0"
         android:layout_column="0"
-        android:text="Back"
-        android:layout_marginBottom="24dp"/>
+        android:text="&lt; Back"
+        android:textSize="13dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"

@@ -47,50 +47,51 @@
         android:id="@+id/postFunctionGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postTextGroup">
 
         <ImageButton
-            android:id="@+id/likeBtn"
-            android:layout_width="31dp"
-            android:layout_height="29dp"
+            android:id="@+id/postLikeBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
             android:src="@android:drawable/star_big_off"
             tools:layout_editor_absoluteX="109dp"
-            tools:layout_editor_absoluteY="88dp"
-            android:layout_marginEnd="10dp"/>
+            tools:layout_editor_absoluteY="88dp" />
 
         <TextView
             android:id="@+id/likeCountTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="likeCount"
-            android:layout_marginEnd="20dp"/>
+            android:text="likeCount" />
 
         <ImageButton
             android:id="@+id/commentBtn"
-            android:layout_width="26dp"
-            android:layout_height="25dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
             android:src="@android:drawable/checkbox_off_background"
             tools:layout_editor_absoluteX="204dp"
-            tools:layout_editor_absoluteY="88dp"
-            android:layout_marginEnd="10dp"/>
+            tools:layout_editor_absoluteY="88dp" />
 
         <TextView
             android:id="@+id/commentCountTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="commentCount"
-            android:layout_marginEnd="20dp"/>
+            android:text="commentCount" />
 
         <ImageButton
             android:id="@+id/shareBtn"
-            android:layout_width="33dp"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@android:drawable/ic_menu_share"
             tools:layout_editor_absoluteX="291dp"
             tools:layout_editor_absoluteY="83dp" />

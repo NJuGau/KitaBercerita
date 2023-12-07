@@ -44,6 +44,9 @@ public class InsertCommentActivity extends AppCompatActivity {
         commentSubmitBtn = findViewById(R.id.insertCommentSubmitBtn);
         backBtn = findViewById(R.id.commentBackBtn);
 
+        String postId = getIntent().getStringExtra("postId");
+        Integer oldCommentCount = getIntent().getIntExtra("oldCommentCount", 0);
+
         commentSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,15 +54,17 @@ public class InsertCommentActivity extends AppCompatActivity {
                 HashMap<String, Object> commentMap = new HashMap<>();
                 commentMap.put("commentDescription", commentDescriptionFld.getText().toString());
                 commentMap.put("commentUserId", User.getCurrentUser().getUserId());
-                commentMap.put("commentPostId", "TODO: get post id");
+                commentMap.put("commentPostId", postId);
+                commentMap.put("commentLikeCount", 0);
 
 
                 rf = db.getReference("Comment");
-                //TODO: Cari cara randomize comment ama postId
-                rf.child(commentDescriptionFld.getText().toString()).setValue(commentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String commentId =FirebaseDatabase.getInstance().getReference().push().getKey();
+                rf.child(commentId).setValue(commentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(InsertCommentActivity.this, "Congratulations!", Toast.LENGTH_SHORT).show();
+                        db.getReference().child("Post").child(postId).child("postCommentCount").setValue(oldCommentCount+1);
                         finish();
                     }
                 });

@@ -83,7 +83,7 @@
             app:layout_constraintTop_toBottomOf="@+id/postTextGroup">
 
             <ImageButton
-                android:id="@+id/likeBtn1"
+                android:id="@+id/searchLikeBtn1"
                 android:layout_width="31dp"
                 android:layout_height="29dp"
                 android:layout_marginEnd="10dp"
@@ -183,7 +183,7 @@
             app:layout_constraintTop_toBottomOf="@+id/postTextGroup">
 
             <ImageButton
-                android:id="@+id/likeBtn"
+                android:id="@+id/searchLikeBtn2"
                 android:layout_width="31dp"
                 android:layout_height="29dp"
                 android:layout_marginEnd="10dp"
@@ -284,7 +284,7 @@
             app:layout_constraintTop_toBottomOf="@+id/postTextGroup">
 
             <ImageButton
-                android:id="@+id/likeBtn2"
+                android:id="@+id/searchLikeBtn3"
                 android:layout_width="31dp"
                 android:layout_height="29dp"
                 android:layout_marginEnd="10dp"

@@ -7,12 +7,12 @@ public class Comment {
     private String userId;
     private String postId;
 
-    public Comment(String commentId, String description, String userId, String postId) {
+    public Comment(String commentId, String description, String userId, String postId, Integer likeCount) {
         this.commentId = commentId;
         this.description = description;
         this.userId = userId;
         this.postId = postId;
-        this.likeCount = 0;
+        this.likeCount = likeCount;
     }
 
     public String getDescription() {

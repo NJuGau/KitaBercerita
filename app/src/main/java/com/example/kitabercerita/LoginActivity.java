@@ -12,14 +12,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.kitabercerita.model.User;
-import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 public class LoginActivity extends AppCompatActivity {
-    private EditText Email, Password;
+    private EditText Username, Password;
     private Button Login;
+    FirebaseDatabase db;
+    DatabaseReference rf;
 
     //NOTES: Temporary, option menu will be unlocked if user has logged in
     @Override
@@ -48,9 +55,10 @@ public class LoginActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Email = findViewById(R.id.editTextTextEmailAddress2);
+        Username = findViewById(R.id.Username);
         Password = findViewById(R.id.editTextTextPassword2);
         Login = findViewById(R.id.LoginBtn);
 
@@ -59,12 +67,39 @@ public class LoginActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = Email.getText().toString();
+
+                String userName = Username.getText().toString();
                 String password = Password.getText().toString();
 
-                if(isValidLogin(email,password)){
-                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                    startActivity(intent);
+                db = FirebaseDatabase.getInstance("https://mobile-78ad2-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                rf = db.getReference("User");
+                if(isValidLogin(userName,password)){
+
+                    rf.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.hasChild(userName)){
+                                String getPassword = snapshot.child(userName).child("password").getValue(String.class);
+                                if (password.equals(getPassword)){
+                                    Toast.makeText(LoginActivity.this, "Success!, you are now logged in!", Toast.LENGTH_SHORT).show();
+
+                                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                    startActivity(intent);
+                                }
+                                else {
+                                    Toast.makeText(LoginActivity.this, "error...! Username or password incorrect!!", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
             }
         });

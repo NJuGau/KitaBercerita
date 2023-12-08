@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 
@@ -40,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Handle sign-up button click
 
+
                 String email = Email.getText().toString();
                 String password = Password.getText().toString();
                 String username = Username.getText().toString();
@@ -52,29 +56,28 @@ public class RegisterActivity extends AppCompatActivity {
                     userMap.put("email", email);
                     userMap.put("password", password);
                     userMap.put("phoneNumber", phoneNumber);
-                    userMap.put("username", username);
+//                    userMap.put("username", username);
                     userMap.put("userId", username + "123");
                     userMap.put("image", 1);
                     userMap.put("status", "this lazy individual has not set his status yet :P");
 
-
-                    rf.push().setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>(){
+                    rf.child(username).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Log.d("Z", "Success");
-                            Toast.makeText(RegisterActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
+                            Log.d("Z", "Post successfully sent");
+                            Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                            startActivity(intent);
                             finish();
+
                         }
+                    });
 
-                    })
 
-                    ;
 
-                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                    startActivity(intent);
                 } else {
                     // Failed sign-up
-                    Toast.makeText(RegisterActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Registration invalid!", Toast.LENGTH_SHORT).show();
                 }
 
             }

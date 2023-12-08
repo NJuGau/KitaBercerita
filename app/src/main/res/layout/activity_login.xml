@@ -14,6 +14,7 @@
         android:layout_marginTop="160dp"
         android:layout_marginEnd="88dp"
         android:ems="10"
+        android:hint="Email Address"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,17 +26,20 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="88dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/editTextTextEmailAddress2" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="41dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="176dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="164dp"
         android:text="Login"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

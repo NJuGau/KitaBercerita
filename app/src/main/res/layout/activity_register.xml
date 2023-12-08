@@ -15,6 +15,7 @@
         android:layout_marginEnd="88dp"
         android:ems="10"
         android:inputType="text"
+        android:hint="Username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <EditText
@@ -24,6 +25,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="88dp"
         android:ems="10"
+        android:hint="Email Address"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/Username" />
@@ -34,6 +36,7 @@
         android:layout_marginTop="88dp"
         android:layout_marginEnd="88dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/editTextTextEmailAddress" />
@@ -48,6 +51,7 @@
         android:layout_marginEnd="88dp"
         android:ems="10"
         android:inputType="number"
+        android:hint="Phone Number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/editTextTextPassword" />
 
@@ -69,6 +73,8 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="168dp"
         android:text="Register"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.395"
         app:layout_constraintTop_toTopOf="parent" />

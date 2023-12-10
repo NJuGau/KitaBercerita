@@ -12,11 +12,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.kitabercerita.adapter.PostAdapter;
-import com.example.kitabercerita.adapter.PostClickListener;
+import com.example.kitabercerita.utility.PostAdapter;
+import com.example.kitabercerita.utility.PostClickListener;
 import com.example.kitabercerita.model.Post;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,8 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.stream.Collectors;
 
 public class SearchPostResultActivity extends AppCompatActivity implements PostClickListener {
 

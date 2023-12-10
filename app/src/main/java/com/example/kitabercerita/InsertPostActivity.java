@@ -50,7 +50,7 @@ public class InsertPostActivity extends AppCompatActivity {
                 Log.d("Z", "Clicked");
                 HashMap<String, Object> postMap = new HashMap<>();
                 postMap.put("postDescription", postDescriptionFld.getText().toString());
-                postMap.put("postUserId", User.getCurrentUser().getUserId());
+                postMap.put("postUserId", User.getCurrentUser().getUsername());
                 postMap.put("postLikeCount", 0);
                 postMap.put("postCommentCount", 0);
 

@@ -1,6 +1,5 @@
-package com.example.kitabercerita.adapter;
+package com.example.kitabercerita.utility;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;

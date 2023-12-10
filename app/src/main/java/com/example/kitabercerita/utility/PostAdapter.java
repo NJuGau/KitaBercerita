@@ -1,4 +1,4 @@
-package com.example.kitabercerita.adapter;
+package com.example.kitabercerita.utility;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

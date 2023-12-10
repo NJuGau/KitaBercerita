@@ -17,8 +17,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.kitabercerita.adapter.PostAdapter;
-import com.example.kitabercerita.adapter.PostClickListener;
+import com.example.kitabercerita.utility.PostAdapter;
+import com.example.kitabercerita.utility.PostClickListener;
 import com.example.kitabercerita.model.Post;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 

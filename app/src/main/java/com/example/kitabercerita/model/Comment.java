@@ -6,13 +6,15 @@ public class Comment {
     private Integer likeCount;
     private String userId;
     private String postId;
+    private Boolean isNotified;
 
-    public Comment(String commentId, String description, String userId, String postId, Integer likeCount) {
+    public Comment(String commentId, String description, String userId, String postId, Integer likeCount, Boolean isNotified) {
         this.commentId = commentId;
         this.description = description;
         this.userId = userId;
         this.postId = postId;
         this.likeCount = likeCount;
+        this.isNotified = isNotified;
     }
 
     public String getDescription() {

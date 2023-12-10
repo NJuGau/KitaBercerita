@@ -1,4 +1,4 @@
-package com.example.kitabercerita.adapter;
+package com.example.kitabercerita.utility;
 
 import android.content.Context;
 import android.view.LayoutInflater;

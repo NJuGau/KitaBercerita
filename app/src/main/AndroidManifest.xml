@@ -18,7 +18,7 @@
             android:name=".InsertCommentActivity"
             android:exported="false" />
         <activity
-            android:name=".adapter.CommentAdapter"
+            android:name=".utility.CommentAdapter"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"

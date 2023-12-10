@@ -43,23 +43,19 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Handle sign-up button click
 
-
                 String email = Email.getText().toString();
                 String password = Password.getText().toString();
                 String username = Username.getText().toString();
                 String phoneNumber = Phonenumber.getText().toString();
                 if (isValidRegister(username, email, password, phoneNumber)) {
-                    // Successful sign-up
                     db = FirebaseDatabase.getInstance("https://mobile-78ad2-default-rtdb.asia-southeast1.firebasedatabase.app/");
                     rf = db.getReference("User");
                     HashMap<String, Object> userMap = new HashMap<>();
                     userMap.put("email", email);
                     userMap.put("password", password);
                     userMap.put("phoneNumber", phoneNumber);
-//                    userMap.put("username", username);
-                    userMap.put("userId", username + "123");
                     userMap.put("image", 1);
-                    userMap.put("status", "this lazy individual has not set his status yet :P");
+                    userMap.put("status", "No Status");
 
                     rf.child(username).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -81,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
             }
-            //TODO: upload data to firebase
         });
     }
     private boolean isValidRegister(String username, String email, String password, String phoneNumber) {

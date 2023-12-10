@@ -56,7 +56,7 @@ public class InsertCommentActivity extends AppCompatActivity {
                 commentMap.put("commentUserId", User.getCurrentUser().getUsername());
                 commentMap.put("commentPostId", postId);
                 commentMap.put("commentLikeCount", 0);
-
+                commentMap.put("commentIsNotified", false);
 
                 rf = db.getReference("Comment");
                 String commentId =FirebaseDatabase.getInstance().getReference().push().getKey();

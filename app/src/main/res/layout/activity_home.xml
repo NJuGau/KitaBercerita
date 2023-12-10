@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:clickable="true"
+        android:contentDescription="Insert Post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/homePostView"
-        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintStart_toStartOf="@+id/homePostView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        android:contentDescription="Insert Post"/>
+        app:layout_constraintVertical_bias="0.871"
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homePostView"

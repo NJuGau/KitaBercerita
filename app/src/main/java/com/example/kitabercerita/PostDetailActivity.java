@@ -86,7 +86,7 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
         rf.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userTxt.setText(snapshot.child("postUserId").getValue(String.class));//TODO: Try to get user object
+                userTxt.setText(snapshot.child("postUserId").getValue(String.class));
                 descriptionTxt.setText(snapshot.child("postDescription").getValue(String.class));
                 likeCountTxt.setText(snapshot.child("postLikeCount").getValue(Integer.class).toString());
                 commentCountTxt.setText(snapshot.child("postCommentCount").getValue(Integer.class).toString());

@@ -1,4 +1,4 @@
-package com.example.kitabercerita.adapter;
+package com.example.kitabercerita.utility;
 
 import android.util.Log;
 import android.view.View;
@@ -10,12 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kitabercerita.R;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
     private ImageView profileImageView;
     private TextView userTxt, descriptionTxt, likeCountTxt, commentCountTxt;
-    private ImageButton likeBtn, commentBtn, shareBtn;
+    private ImageButton likeBtn, commentBtn;
     private PostClickListener clickListener;
 
     public PostViewHolder(@NonNull View itemView, PostClickListener listener) {
@@ -28,7 +27,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         commentCountTxt = itemView.findViewById(R.id.commentCountTxt);
         likeBtn = itemView.findViewById(R.id.postLikeBtn);
         commentBtn = itemView.findViewById(R.id.commentBtn);
-        shareBtn = itemView.findViewById(R.id.shareBtn);
 
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,12 +42,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     public ImageView getProfileImageView() {
@@ -108,12 +100,5 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         this.commentBtn = commentBtn;
     }
 
-    public ImageButton getShareBtn() {
-        return shareBtn;
-    }
-
-    public void setShareBtn(ImageButton shareBtn) {
-        this.shareBtn = shareBtn;
-    }
 
 }

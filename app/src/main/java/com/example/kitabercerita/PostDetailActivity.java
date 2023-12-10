@@ -18,12 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.kitabercerita.adapter.CommentAdapter;
-import com.example.kitabercerita.adapter.CommentClickListener;
-import com.example.kitabercerita.adapter.PostAdapter;
+import com.example.kitabercerita.utility.CommentAdapter;
+import com.example.kitabercerita.utility.CommentClickListener;
 import com.example.kitabercerita.model.Comment;
-import com.example.kitabercerita.model.Post;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,7 +57,7 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
 
     private ImageView profileImg;
     private TextView userTxt, descriptionTxt, likeCountTxt, commentCountTxt, backBtn;
-    private ImageButton likeBtn, commentBtn, shareBtn;
+    private ImageButton likeBtn, commentBtn;
     private RecyclerView commentRecyclerView;
     ArrayList<Comment> commentList;
     FirebaseDatabase db;
@@ -78,13 +75,11 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
         commentCountTxt = findViewById(R.id.detailCommentCountTxt);
         likeBtn = findViewById(R.id.detailLikeBtn);
         commentBtn = findViewById(R.id.detailCommentBtn);
-        shareBtn = findViewById(R.id.detailShareBtn);
         commentRecyclerView = findViewById(R.id.commentRecyclerView);
         gotoInsertCommentBtn = findViewById(R.id.gotoInsertCommentBtn);
         backBtn = findViewById(R.id.detailBackBtn);
 
         String postId = getIntent().getStringExtra("postId");
-        //TODO: get data from database
 
         db = FirebaseDatabase.getInstance();
         rf = db.getReference().child("Post").child(postId);
@@ -126,7 +121,8 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
                         String commentUserId = sn.child("commentUserId").getValue(String.class);
 
                         Integer likeCount = sn.child("commentLikeCount").getValue(Integer.class);
-                        commentList.add(new Comment(commentId, commentDescription, commentUserId, commentPostId, likeCount));
+                        Boolean isNotified = sn.child("commentIsNotified").getValue(Boolean.class);
+                        commentList.add(new Comment(commentId, commentDescription, commentUserId, commentPostId, likeCount, isNotified));
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -138,9 +134,6 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
             }
         });
 
-//        commentList.add(new Comment("129031209381293","haloooo", "129031209381293", "129031209381293"));
-//        commentList.add(new Comment("129031209381293","sfsdfdsjfndsklf", "129031209381293", "129031209381293"));
-//        commentList.add(new Comment("129031209381293","231i3n12kj3n", "129031209381293", "129031209381293"));
 
         gotoInsertCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,7 +2,6 @@ package com.example.kitabercerita.model;
 
 public class User {
     private static User currentUser;
-    private String userId;
     private String username;
     private String email;
     private String password;
@@ -10,8 +9,7 @@ public class User {
     private String phoneNumber;
     private int image;
 
-    public User(String userId, String username, String email, String password, String status, String phoneNumber, int image) {
-        this.userId = userId;
+    public User(String username, String email, String password, String status, String phoneNumber, int image) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -74,13 +72,5 @@ public class User {
 
     public void setImage(int image) {
         this.image = image;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 }

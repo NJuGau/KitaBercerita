@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".adapter.PostAdapter">
+    tools:context=".utility.PostAdapter">
 
 
     <ImageView
@@ -32,12 +32,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Username"
-            android:textSize="8dp"/>
+            android:textSize="13dp"/>
 
         <TextView
             android:id="@+id/descriptionTxt"
             android:layout_width="275dp"
-            android:layout_height="33dp"
+            android:layout_height="100dp"
             android:text="Description"
             android:textSize="15dp" />
 
@@ -50,8 +50,9 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/postTextGroup">
 
         <ImageButton
@@ -59,7 +60,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="10dp"
-            android:src="@android:drawable/star_big_off"
+            android:background="@android:color/transparent"
+            android:src="@drawable/like"
             tools:layout_editor_absoluteX="109dp"
             tools:layout_editor_absoluteY="88dp" />
 
@@ -76,7 +78,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="10dp"
-            android:src="@android:drawable/checkbox_off_background"
+            android:src="@drawable/comment"
+            android:background="@android:color/transparent"
             tools:layout_editor_absoluteX="204dp"
             tools:layout_editor_absoluteY="88dp" />
 
@@ -88,13 +91,6 @@
             android:layout_weight="1"
             android:text="commentCount" />
 
-        <ImageButton
-            android:id="@+id/shareBtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_share"
-            tools:layout_editor_absoluteX="291dp"
-            tools:layout_editor_absoluteY="83dp" />
     </LinearLayout>
 
 

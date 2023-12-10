@@ -27,32 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button Login;
     FirebaseDatabase db;
     DatabaseReference rf;
-
-    //NOTES: Temporary, option menu will be unlocked if user has logged in
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        Intent intent = null;
-        if(itemId == R.id.homeMenu) {
-            User.setCurrentUser(new User("123123123sadadas", "haha", "haha@mail.com", "haha123", "trilili", "121212121212", 2));
-            intent = new Intent(this.getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
-        }else if(itemId == R.id.searchMenu) {
-            intent = new Intent(this.getApplicationContext(), SearchPostActivity.class);
-            startActivity(intent);
-        }else if (itemId == R.id.profileMenu) {
-            intent = new Intent(this.getApplicationContext(), ProfileViewActivity.class);
-            startActivity(intent);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inf = getMenuInflater();
-        inf.inflate(R.menu.option_menu,menu);
-        return true;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -82,8 +56,12 @@ public class LoginActivity extends AppCompatActivity {
                             if (snapshot.hasChild(userName)){
                                 String getPassword = snapshot.child(userName).child("password").getValue(String.class);
                                 if (password.equals(getPassword)){
+                                    String email = snapshot.child(userName).child("email").getValue(String.class);
+                                    String status = snapshot.child(userName).child("status").getValue(String.class);
+                                    String phoneNumber = snapshot.child(userName).child("phoneNumber").getValue(String.class);
+                                    Integer image = snapshot.child(userName).child("image").getValue(Integer.class);
                                     Toast.makeText(LoginActivity.this, "Success!, you are now logged in!", Toast.LENGTH_SHORT).show();
-
+                                    User.setCurrentUser(new User(userName, email, password, status, phoneNumber, image));
                                     Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                                     startActivity(intent);
                                 }

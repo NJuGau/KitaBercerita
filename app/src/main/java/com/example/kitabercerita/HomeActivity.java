@@ -13,8 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.kitabercerita.adapter.PostClickListener;
-import com.example.kitabercerita.adapter.PostAdapter;
+import com.example.kitabercerita.utility.PostClickListener;
+import com.example.kitabercerita.utility.PostAdapter;
 import com.example.kitabercerita.model.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -96,10 +96,6 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
                 for(DataSnapshot sn : snapshot.getChildren()){
-//                    HashMap<String, Object> map = (HashMap<String, Object>) sn.getValue();
-//                    Log.d("post Id", sn.getKey().toString());
-//                    Log.d("description", sn.child("postDescription").getValue(String.class));
-//                    Log.d("user", sn.child("postUserId").getValue(String.class));
 
                     String postId = sn.getKey().toString();
                     String postDescription = sn.child("postDescription").getValue(String.class);
@@ -117,11 +113,6 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
             }
         });
 
-//        postList.add(new Post("129031209381293","lololol" +
-//                "xcxzczxczxczxczxczxc" +
-//                "zxczxczxczxc", "129031209381293"));
-//        postList.add(new Post("afkhdsif8ew9fcs","lululul", "129031209381293"));
-//        postList.add(new Post("sdufhsduf89sfs9","lelelel", "129031209381293"));
     }
 
     @Override

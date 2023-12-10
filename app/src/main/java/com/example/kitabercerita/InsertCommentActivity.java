@@ -53,7 +53,7 @@ public class InsertCommentActivity extends AppCompatActivity {
 //                Comment comment = new Comment("sadasdasdasd", commentDescriptionFld.getText().toString(), User.getCurrentUser().getUserId(), "get post id");
                 HashMap<String, Object> commentMap = new HashMap<>();
                 commentMap.put("commentDescription", commentDescriptionFld.getText().toString());
-                commentMap.put("commentUserId", User.getCurrentUser().getUserId());
+                commentMap.put("commentUserId", User.getCurrentUser().getUsername());
                 commentMap.put("commentPostId", postId);
                 commentMap.put("commentLikeCount", 0);
 

@@ -1,21 +1,7 @@
 package com.example.kitabercerita.model;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.kitabercerita.HomeActivity;
-import com.example.kitabercerita.adapter.PostAdapter;
-import com.example.kitabercerita.adapter.PostViewHolder;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class Post implements Comparable<Post> {
     private String postId;

@@ -1,17 +1,15 @@
-package com.example.kitabercerita.adapter;
+package com.example.kitabercerita.utility;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kitabercerita.R;
 import com.example.kitabercerita.model.Comment;
-import com.example.kitabercerita.model.Post;
 
 import java.util.List;
 

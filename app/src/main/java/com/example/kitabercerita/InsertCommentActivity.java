@@ -45,6 +45,7 @@ public class InsertCommentActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.commentBackBtn);
 
         String postId = getIntent().getStringExtra("postId");
+        String userPostId = getIntent().getStringExtra("userPostId");
         Integer oldCommentCount = getIntent().getIntExtra("oldCommentCount", 0);
 
         commentSubmitBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +58,7 @@ public class InsertCommentActivity extends AppCompatActivity {
                 commentMap.put("commentPostId", postId);
                 commentMap.put("commentLikeCount", 0);
                 commentMap.put("commentIsNotified", false);
+                commentMap.put("originalPostUserId", userPostId);
 
                 rf = db.getReference("Comment");
                 String commentId =FirebaseDatabase.getInstance().getReference().push().getKey();

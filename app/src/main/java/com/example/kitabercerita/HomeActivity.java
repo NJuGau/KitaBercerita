@@ -21,6 +21,7 @@ import android.view.View;
 
 import com.example.kitabercerita.model.Comment;
 import com.example.kitabercerita.model.User;
+import com.example.kitabercerita.utility.CommentNotificationService;
 import com.example.kitabercerita.utility.PostClickListener;
 import com.example.kitabercerita.utility.PostAdapter;
 import com.example.kitabercerita.model.Post;
@@ -34,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 public class HomeActivity extends AppCompatActivity implements PostClickListener {
 
@@ -55,10 +57,10 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
             intent = new Intent(this.getApplicationContext(), ProfileViewActivity.class);
             startActivity(intent);
         }else if (itemId == R.id.notify){
+            Log.d("CommentPressed", "true");
             notifyUserComment();
         }
         return true;
-        //test -kp
     }
 
     @Override
@@ -143,7 +145,6 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
         startActivity(i);
     }
 
-    String notificationUserId;
 
     public void notifyUserComment() {
         db = FirebaseDatabase.getInstance("https://mobile-78ad2-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -151,29 +152,14 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
         rf.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 for(DataSnapshot sn : snapshot.getChildren()){
-                    notificationUserId = "";
-                    String commentPostId = sn.child("commentPostId").getValue(String.class);
-                    DatabaseReference rf2 = db.getReference().child("Post").child(commentPostId);
-
-                    rf2.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            notificationUserId = snapshot.child("postUserId").getValue(String.class);
-                            Boolean isNotified = sn.child("commentIsNotified").getValue(Boolean.class);
-                            if(notificationUserId.equals(User.getCurrentUser().getUsername()) && !isNotified){
-                                rf.child(sn.getKey().toString()).child("commentIsNotified").setValue(true);
-                                String commentDescription = sn.child("commentDescription").getValue(String.class);
-                                makeCommentNotification(commentDescription, commentPostId);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    String originalPostUserId = sn.child("originalPostUserId").getValue(String.class);
+                    Boolean isNotified = sn.child("commentIsNotified").getValue(Boolean.class);
+//                    Log.d("commentId", sn.getKey().toString());
+                    if(originalPostUserId.equals(User.getCurrentUser().getUsername()) && !isNotified){
+                        rf.child(sn.getKey().toString()).child("commentIsNotified").setValue(true);
+                        CommentNotificationService.makeCommentNotification(sn.child("commentDescription").getValue(String.class), sn.child("commentPostId").getValue(String.class), getApplicationContext());
+                    }
                 }
             }
 
@@ -182,32 +168,6 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
 
             }
         });
-    }
 
-    private void makeCommentNotification(String comment, String postId){
-        String chId = "CHANNEL_ID_NOTIFICATION";
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(getApplicationContext(), chId);
-        notifBuilder.setSmallIcon(R.drawable.logo);
-        notifBuilder.setContentTitle("Your post has received a new comment!");
-        notifBuilder.setContentText(comment);
-        notifBuilder.setAutoCancel(true);
-        notifBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        Intent i = new Intent(getApplicationContext(), PostDetailActivity.class);
-        i.putExtra("postId", postId);
-
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, i, PendingIntent.FLAG_MUTABLE);
-        notifBuilder.setContentIntent(pi);
-
-        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel nc = nm.getNotificationChannel(chId);
-                    if(nc == null){
-                        nc = new NotificationChannel(chId, "commentNotification", NotificationManager.IMPORTANCE_HIGH);
-                        nm.createNotificationChannel(nc);
-                    }
-        }
-        nm.notify(0, notifBuilder.build());
     }
 }

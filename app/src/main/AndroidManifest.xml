@@ -16,6 +16,9 @@
         android:theme="@style/Theme.KitaBercerita"
         tools:targetApi="31">
         <activity
+            android:name=".utility.LoadingActivity"
+            android:exported="false" />
+        <activity
             android:name=".AuthenticationActivity"
             android:exported="false" />
         <activity

@@ -80,12 +80,14 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
         backBtn = findViewById(R.id.detailBackBtn);
 
         String postId = getIntent().getStringExtra("postId");
+        final String[] userPostId = {""};
 
         db = FirebaseDatabase.getInstance();
         rf = db.getReference().child("Post").child(postId);
         rf.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userPostId[0] = snapshot.child("postUserId").getValue(String.class);
                 userTxt.setText(snapshot.child("postUserId").getValue(String.class));
                 descriptionTxt.setText(snapshot.child("postDescription").getValue(String.class));
                 likeCountTxt.setText(snapshot.child("postLikeCount").getValue(Integer.class).toString());
@@ -140,6 +142,7 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
             public void onClick(View view) {
                 Intent intent = new Intent(PostDetailActivity.this, InsertCommentActivity.class);
                 intent.putExtra("postId", postId);
+                intent.putExtra("userPostId", userPostId[0]);
                 intent.putExtra("oldCommentCount", Integer.parseInt(commentCountTxt.getText().toString()));
                 startActivity(intent);
             }

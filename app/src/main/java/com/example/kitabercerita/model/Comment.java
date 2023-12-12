@@ -1,5 +1,18 @@
 package com.example.kitabercerita.model;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 public class Comment {
     private String commentId;
     private String description;
@@ -7,7 +20,6 @@ public class Comment {
     private String userId;
     private String postId;
     private Boolean isNotified;
-
     public Comment(String commentId, String description, String userId, String postId, Integer likeCount, Boolean isNotified) {
         this.commentId = commentId;
         this.description = description;
@@ -55,5 +67,13 @@ public class Comment {
 
     public void setPostId(String postId) {
         this.postId = postId;
+    }
+
+    public Boolean getNotified() {
+        return isNotified;
+    }
+
+    public void setNotified(Boolean notified) {
+        isNotified = notified;
     }
 }

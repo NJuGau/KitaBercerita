@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -61,12 +62,14 @@ public class SearchPostActivity extends AppCompatActivity implements PostClickLi
     FirebaseDatabase db;
     DatabaseReference rf;
     PostAdapter adapter;
+    Button searchBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_post);
 
         EditText editText = findViewById(R.id.searchedittext);
+        searchBtn = findViewById(R.id.searchBtn);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -76,13 +79,29 @@ public class SearchPostActivity extends AppCompatActivity implements PostClickLi
 
                     Log.d("SearchPostActivity", "User Input: " + userInput);
 
-                    Intent intent = new Intent(SearchPostActivity.this, SearchPostResultActivity.class);
-                    intent.putExtra("userInput", userInput);
-                    startActivity(intent);
+                    if(!userInput.equals("")) {
+                        Intent intent = new Intent(SearchPostActivity.this, SearchPostResultActivity.class);
+                        intent.putExtra("userInput", userInput);
+                        startActivity(intent);
+                    }
 
                     return true; // Consume the event
                 }
                 return false; // Let the system handle the event
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userInput = editText.getText().toString();
+
+                Log.d("SearchPostActivity", "User Input: " + userInput);
+                if(!userInput.equals("")) {
+                    Intent intent = new Intent(SearchPostActivity.this, SearchPostResultActivity.class);
+                    intent.putExtra("userInput", userInput);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -100,6 +119,7 @@ public class SearchPostActivity extends AppCompatActivity implements PostClickLi
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Post> allPost = new ArrayList<>();
                 postList.clear();
                 for(DataSnapshot sn : snapshot.getChildren()){
                     Integer postLikeCount = sn.child("postLikeCount").getValue(Integer.class);
@@ -107,10 +127,12 @@ public class SearchPostActivity extends AppCompatActivity implements PostClickLi
                     String postDescription = sn.child("postDescription").getValue(String.class);
                     String postUserId = sn.child("postUserId").getValue(String.class);
                     Integer postCommentCount = sn.child("postCommentCount").getValue(Integer.class);
-                    postList.add(new Post(postId, postDescription, postUserId, postLikeCount, postCommentCount));
+                    allPost.add(new Post(postId, postDescription, postUserId, postLikeCount, postCommentCount));
                 }
-                Collections.sort(postList);
-                postList = (ArrayList<Post>) postList.stream().limit(3).collect(Collectors.toList());
+                Collections.sort(allPost);
+                for(int i = 0; i < 2 && i < allPost.size(); i++){
+                    postList.add(allPost.get(i));
+                }
                 adapter.notifyDataSetChanged();
             }
 

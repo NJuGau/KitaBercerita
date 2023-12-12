@@ -2,11 +2,25 @@ package com.example.kitabercerita;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +69,63 @@ public class RegisterFragment extends Fragment {
         }
     }
 
+    private EditText Email, Password, Username, Phonenumber;
+    private Button buttonReg;
+    FirebaseDatabase db;
+    DatabaseReference rf;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false) ;
+        Email = view.findViewById(R.id.editTextTextEmailAddress);
+        Password = view.findViewById(R.id.editTextTextPassword);
+        Username = view.findViewById(R.id.Username);
+        Phonenumber = view.findViewById(R.id.PhoneNumber);
+        buttonReg = view.findViewById(R.id.buttonReg);
+
+        buttonReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle sign-up button click
+                Log.d("Register", "clicked");
+                String email = Email.getText().toString();
+                String password = Password.getText().toString();
+                String username = Username.getText().toString();
+                String phoneNumber = Phonenumber.getText().toString();
+                Log.d("Register", email + password + username + phoneNumber);
+                if (isValidRegister(username, email, password, phoneNumber)) {
+                    Log.d("Register", "valid");
+                    db = FirebaseDatabase.getInstance("https://mobile-78ad2-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                    rf = db.getReference("User");
+                    HashMap<String, Object> userMap = new HashMap<>();
+                    userMap.put("email", email);
+                    userMap.put("password", password);
+                    userMap.put("phoneNumber", phoneNumber);
+                    userMap.put("image", 1);
+                    userMap.put("status", "No Status");
+
+                    rf.child(username).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.d("Z", "Post successfully sent");
+                            Toast.makeText(getActivity().getApplicationContext(), "Registration Successful!", Toast.LENGTH_SHORT).show();
+                            FragmentManager fm = getActivity().getSupportFragmentManager();
+                            FragmentTransaction ft = fm.beginTransaction();
+                            ft.replace(R.id.authFragment, new LoginFragment());
+                            ft.commit();
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Registration invalid!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        return view;
+    }
+
+    private boolean isValidRegister(String username, String email, String password, String phoneNumber) {
+        return !username.isEmpty() && !email.isEmpty() && !password.isEmpty() && !phoneNumber.isEmpty();
     }
 }

@@ -2,10 +2,17 @@ package com.example.kitabercerita;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,6 +28,7 @@ import android.widget.TextView;
 import com.example.kitabercerita.utility.PostAdapter;
 import com.example.kitabercerita.utility.PostClickListener;
 import com.example.kitabercerita.model.Post;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,33 +37,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class SearchPostActivity extends AppCompatActivity implements PostClickListener {
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        Intent intent = null;
-        if(itemId == R.id.homeMenu) {
-            intent = new Intent(this.getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
-        }else if(itemId == R.id.searchMenu) {
-            intent = new Intent(this.getApplicationContext(), SearchPostActivity.class);
-            startActivity(intent);
-        }else if (itemId == R.id.profileMenu) {
-            intent = new Intent(this.getApplicationContext(), ProfileViewActivity.class);
-            startActivity(intent);
-        }
-        return true;
-    }
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private Fragment activeFragment;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inf = getMenuInflater();
-        inf.inflate(R.menu.option_menu,menu);
-        return true;
-    }
     EditText editText;
     RecyclerView top3View;
     ArrayList<Post> postList;
@@ -63,6 +52,16 @@ public class SearchPostActivity extends AppCompatActivity implements PostClickLi
     DatabaseReference rf;
     PostAdapter adapter;
     Button searchBtn;
+
+    private void switchFragment(Fragment targetFragment) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (!targetFragment.isAdded()) {
+            transaction.hide(activeFragment).add(R.id.fragmentContainer, targetFragment).commit();
+        } else {
+            transaction.hide(activeFragment).show(targetFragment).commit();
+        }
+        activeFragment = targetFragment;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +69,52 @@ public class SearchPostActivity extends AppCompatActivity implements PostClickLi
 
         EditText editText = findViewById(R.id.searchedittext);
         searchBtn = findViewById(R.id.searchBtn);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setItemIconTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.darker_gray)));
+        bottomNavigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(android.R.color.darker_gray)));
+
+        // Initialize your fragments
+        final Fragment homeFragment = new HomeFragment();
+        final Fragment searchFragment = new SearchFragment();
+        final Fragment profileFragment = new ProfileFragment();
+
+        // Set the default fragment
+        activeFragment = searchFragment;
+        fragmentManager.beginTransaction().add(R.id.fragmentContainer, homeFragment).commit();
+
+        // Set listener to handle item clicks
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.homeMenu:
+                        // Handle home item click
+                        intent = new Intent(SearchPostActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        switchFragment(homeFragment);
+                        return true;
+
+                    case R.id.searchMenu:
+                        // Handle search item click
+                        intent = new Intent(SearchPostActivity.this, SearchPostActivity.class);
+                        startActivity(intent);
+                        switchFragment(searchFragment);
+                        return true;
+
+                    case R.id.profileMenu:
+                        // Handle profile item click
+                        intent = new Intent(SearchPostActivity.this, ProfileViewActivity.class);
+                        startActivity(intent);
+                        switchFragment(profileFragment);
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {

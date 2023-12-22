@@ -2,8 +2,12 @@ package com.example.kitabercerita;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -19,8 +23,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.kitabercerita.model.User;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,29 +39,8 @@ public class ProfileViewActivity extends AppCompatActivity {
     DatabaseReference rf;
     String sender;
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        Intent intent = null;
-        if(itemId == R.id.homeMenu) {
-            intent = new Intent(this.getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
-        }else if(itemId == R.id.searchMenu) {
-            intent = new Intent(this.getApplicationContext(), SearchPostActivity.class);
-            startActivity(intent);
-        }else if (itemId == R.id.profileMenu) {
-            intent = new Intent(this.getApplicationContext(), ProfileViewActivity.class);
-            startActivity(intent);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inf = getMenuInflater();
-        inf.inflate(R.menu.option_menu,menu);
-        return true;
-    }
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private Fragment activeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +106,61 @@ public class ProfileViewActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setItemIconTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.darker_gray)));
+        bottomNavigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(android.R.color.darker_gray)));
+        // Initialize your fragments
+        final Fragment homeFragment = new HomeFragment();
+        final Fragment searchFragment = new SearchFragment();
+        final Fragment profileFragment = new ProfileFragment();
+
+        // Set the default fragment
+        activeFragment = searchFragment;
+        fragmentManager.beginTransaction().add(R.id.fragmentContainer, homeFragment).commit();
+
+        // Set listener to handle item clicks
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.homeMenu:
+                        // Handle home item click
+                        intent = new Intent(ProfileViewActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        switchFragment(homeFragment);
+                        return true;
+
+                    case R.id.searchMenu:
+                        // Handle search item click
+                        intent = new Intent(ProfileViewActivity.this, SearchPostActivity.class);
+                        startActivity(intent);
+                        switchFragment(searchFragment);
+                        return true;
+
+                    case R.id.profileMenu:
+                        // Handle profile item click
+                        intent = new Intent(ProfileViewActivity.this, ProfileViewActivity.class);
+                        startActivity(intent);
+                        switchFragment(profileFragment);
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
+    }
+
+    private void switchFragment(Fragment targetFragment) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (!targetFragment.isAdded()) {
+            transaction.hide(activeFragment).add(R.id.fragmentContainer, targetFragment).commit();
+        } else {
+            transaction.hide(activeFragment).show(targetFragment).commit();
+        }
+        activeFragment = targetFragment;
     }
 
     private Bitmap getCircularBitmap(Bitmap bitmap) {

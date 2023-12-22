@@ -14,6 +14,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.net.http.UrlRequest;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.example.kitabercerita.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,6 +59,9 @@ public class ProfileViewActivity extends AppCompatActivity {
         //text view
         nameTv = findViewById(R.id.nameTv);
         statusTv = findViewById(R.id.statusTv);
+
+        nameTv.setText(User.getCurrentUser().getUsername());
+        statusTv.setText(User.getCurrentUser().getStatus());
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -96,7 +100,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileViewActivity.this, LoginActivity.class);
+                Intent intent = new Intent(ProfileViewActivity.this, AuthenticationActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();

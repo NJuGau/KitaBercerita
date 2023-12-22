@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-    <item
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageButton
         android:id="@+id/homeMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_home_24"
         android:title="Home"/>
 
-    <item
+    <ImageButton
         android:id="@+id/searchMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_search_24"
         android:title="Search"/>
 
-    <item
+    <ImageButton
         android:id="@+id/profileMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_person_24"
         android:title="Profile"/>
-</menu>
+
+</LinearLayout>

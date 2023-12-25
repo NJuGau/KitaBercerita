@@ -3,14 +3,20 @@ package com.example.kitabercerita;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import com.example.kitabercerita.model.Comment;
 import com.example.kitabercerita.model.User;
@@ -26,6 +34,8 @@ import com.example.kitabercerita.utility.PostClickListener;
 import com.example.kitabercerita.utility.PostAdapter;
 import com.example.kitabercerita.model.Post;
 import com.google.android.gms.tasks.Tasks;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +44,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
@@ -43,20 +54,14 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
     FirebaseDatabase db;
     DatabaseReference rf;
     PostAdapter adapter;
-    @Override
+
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private Fragment activeFragment;
+
+        @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        Intent intent;
-        if(itemId == R.id.homeMenu) {
-            intent = new Intent(this.getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
-        }else if(itemId == R.id.searchMenu) {
-            intent = new Intent(this.getApplicationContext(), SearchPostActivity.class);
-            startActivity(intent);
-        }else if (itemId == R.id.profileMenu) {
-            intent = new Intent(this.getApplicationContext(), ProfileViewActivity.class);
-            startActivity(intent);
-        }else if (itemId == R.id.notify){
+        if (itemId == R.id.notify){
             Log.d("CommentPressed", "true");
             notifyUserComment();
         }
@@ -66,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inf = getMenuInflater();
-        inf.inflate(R.menu.option_menu,menu);
+        inf.inflate(R.menu.notify_menu,menu);
         return true;
     }
 
@@ -81,6 +86,50 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
         postView = findViewById(R.id.homePostView);
         gotoInsertPostBtn = findViewById(R.id.gotoInsertPostBtn);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setItemIconTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.darker_gray)));
+        bottomNavigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(android.R.color.darker_gray)));
+        // Initialize your fragments
+        final Fragment homeFragment = new HomeFragment();
+        final Fragment searchFragment = new SearchFragment();
+        final Fragment profileFragment = new ProfileFragment();
+
+        // Set the default fragment
+        activeFragment = homeFragment;
+        fragmentManager.beginTransaction().add(R.id.fragmentContainer, homeFragment).commit();
+
+        // Set listener to handle item clicks
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.homeMenu:
+                        // Handle home item click
+                        intent = new Intent(HomeActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        switchFragment(homeFragment);
+                        return true;
+
+                    case R.id.searchMenu:
+                        // Handle search item click
+                        intent = new Intent(HomeActivity.this, SearchPostActivity.class);
+                        startActivity(intent);
+                        switchFragment(searchFragment);
+                        return true;
+
+                    case R.id.profileMenu:
+                        // Handle profile item click
+                        intent = new Intent(HomeActivity.this, ProfileViewActivity.class);
+                        startActivity(intent);
+                        switchFragment(profileFragment);
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
 
         //go to insert post
         gotoInsertPostBtn.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +192,16 @@ public class HomeActivity extends AppCompatActivity implements PostClickListener
         Intent i = new Intent(HomeActivity.this, PostDetailActivity.class);
         i.putExtra("postId", postList.get(position).getPostId());
         startActivity(i);
+    }
+
+    private void switchFragment(Fragment targetFragment) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (!targetFragment.isAdded()) {
+            transaction.hide(activeFragment).add(R.id.fragmentContainer, targetFragment).commit();
+        } else {
+            transaction.hide(activeFragment).show(targetFragment).commit();
+        }
+        activeFragment = targetFragment;
     }
 
 

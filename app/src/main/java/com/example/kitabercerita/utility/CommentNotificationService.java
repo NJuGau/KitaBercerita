@@ -23,7 +23,7 @@ public class CommentNotificationService {
 
     public static void makeCommentNotification(String description, String postId, Context context){
         Log.d("NotificationService", "successfully land in method");
-            String chId = "CHANNEL_ID_NOTIFICATION";
+            String chId = "commentNotif";
             NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context, chId);
             notifBuilder.setSmallIcon(R.drawable.logo);
             notifBuilder.setContentTitle("Your post has received a new comment!");

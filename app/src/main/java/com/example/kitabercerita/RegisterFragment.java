@@ -101,7 +101,7 @@ public class RegisterFragment extends Fragment {
                     userMap.put("email", email);
                     userMap.put("password", password);
                     userMap.put("phoneNumber", phoneNumber);
-                    userMap.put("image", 1);
+                    userMap.put("image", "blankpp");
                     userMap.put("status", "No Status");
 
                     rf.child(username).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -7,9 +7,9 @@ public class User {
     private String password;
     private String status;
     private String phoneNumber;
-    private int image;
+    private String image;
 
-    public User(String username, String email, String password, String status, String phoneNumber, int image) {
+    public User(String username, String email, String password, String status, String phoneNumber, String image) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -66,11 +66,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

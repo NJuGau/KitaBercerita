@@ -107,7 +107,7 @@ public class LoginFragment extends Fragment {
                                     String email = snapshot.child(userName).child("email").getValue(String.class);
                                     String status = snapshot.child(userName).child("status").getValue(String.class);
                                     String phoneNumber = snapshot.child(userName).child("phoneNumber").getValue(String.class);
-                                    Integer image = snapshot.child(userName).child("image").getValue(Integer.class);
+                                    String image = snapshot.child(userName).child("image").getValue(String.class);
                                     Toast.makeText(getActivity().getApplicationContext(), "Success!, you are now logged in!", Toast.LENGTH_SHORT).show();
                                     User.setCurrentUser(new User(userName, email, password, status, phoneNumber, image));
                                     Intent intent = new Intent(getActivity().getApplicationContext(),HomeActivity.class);

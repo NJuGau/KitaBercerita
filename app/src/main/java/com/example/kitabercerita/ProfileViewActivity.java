@@ -3,13 +3,10 @@ package com.example.kitabercerita;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,19 +16,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.kitabercerita.databinding.ActivityProfileViewBinding;
+import com.example.kitabercerita.model.User;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ProfileViewActivity extends AppCompatActivity {
 
     ImageView ppIv;
     TextView nameTv, statusTv;
     Button editBtn, logoutBtn;
-    DatabaseReference rf;
-    String sender;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -57,45 +56,42 @@ public class ProfileViewActivity extends AppCompatActivity {
         return true;
     }
 
+    ActivityProfileViewBinding binding;
+    StorageReference storageReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_view);
+        binding = ActivityProfileViewBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         //profile picture
         ppIv = findViewById(R.id.ppIv);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.nopp);
 
-        if (bitmap != null) {
-            Bitmap circularBitmap = getCircularBitmap(bitmap);
-            ppIv.setImageBitmap(circularBitmap);
+        String imageID = User.getCurrentUser().getImage();
+        storageReference = FirebaseStorage.getInstance().getReference("images/"+imageID+".jpg");
+
+        try {
+            File localFile = File.createTempFile("tempFile", ".jpg");
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    binding.ppIv.setImageBitmap(bitmap);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         //text view
         nameTv = findViewById(R.id.nameTv);
         statusTv = findViewById(R.id.statusTv);
 
-        Intent intent = getIntent();
-        if (intent != null) {
-            sender = intent.getStringExtra("EXTRA_MESSAGE");
-
-            if (sender != null) {
-                //ambil dari db
-                rf = FirebaseDatabase.getInstance().getReference().child("User").child(sender);
-                rf.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot sn) {
-                        nameTv.setText(sn.child("username").getValue(String.class));
-                        statusTv.setText(sn.child("status").getValue(String.class));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        }
+        //tampilkan informasi current user
+        User u = User.getCurrentUser();
+        nameTv.setText(u.getUsername());
+        statusTv.setText(u.getStatus());
 
         //button
         editBtn = findViewById(R.id.editProfileBtn);
@@ -118,23 +114,6 @@ public class ProfileViewActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    private Bitmap getCircularBitmap(Bitmap bitmap) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-
-        Bitmap circularBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(circularBitmap);
-
-        Paint paint = new Paint();
-        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint.setShader(shader);
-
-        float radius = Math.min(width, height) / 2f;
-        canvas.drawCircle(width / 2f, height / 2f, radius, paint);
-
-        return circularBitmap;
     }
 
 }

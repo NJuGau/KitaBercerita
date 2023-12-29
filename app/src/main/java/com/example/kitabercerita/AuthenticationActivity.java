@@ -33,6 +33,7 @@ public class AuthenticationActivity extends AppCompatActivity {
             if(ContextCompat.checkSelfPermission(AuthenticationActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(AuthenticationActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
             }
+
         }
 
         gotoLoginBtn = findViewById(R.id.gotoLoginBtn);
@@ -63,23 +64,23 @@ public class AuthenticationActivity extends AppCompatActivity {
             }
         });
 
-        //TEST TOKEN
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.d("token", "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        String token = task.getResult();
-
-                        Log.d("token", token);
-                        Toast.makeText(AuthenticationActivity.this, token, Toast.LENGTH_SHORT).show();
-                    }
-                });
+//        //TEST TOKEN
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.d("token", "Fetching FCM registration token failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new FCM registration token
+//                        String token = task.getResult();
+//
+//                        Log.d("token", token);
+//                        Toast.makeText(AuthenticationActivity.this, token, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
     }
 }

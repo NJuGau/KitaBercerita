@@ -18,6 +18,7 @@
         android:textStyle="bold"
         />
     <LinearLayout
+        android:id="@+id/contentLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
@@ -28,7 +29,7 @@
             android:layout_marginTop="28dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/nopp" />
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/detailPostTextGroup"

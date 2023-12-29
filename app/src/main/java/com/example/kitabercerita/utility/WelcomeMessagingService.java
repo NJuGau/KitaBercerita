@@ -13,6 +13,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.kitabercerita.AuthenticationActivity;
+import com.example.kitabercerita.R;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -27,7 +28,7 @@ public class WelcomeMessagingService extends FirebaseMessagingService {
         final String chID = "welcomeNotif";
         NotificationChannel channel = new NotificationChannel(chID, "welcome notif", NotificationManager.IMPORTANCE_HIGH);
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this, chID).setContentTitle(messageTitle).setContentText(messageBody).setAutoCancel(true);
+        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this, chID).setContentTitle(messageTitle).setContentText(messageBody).setSmallIcon(R.drawable.logo).setAutoCancel(true);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions

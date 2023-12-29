@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,15 +20,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kitabercerita.databinding.ActivityPostDetailBinding;
+import com.example.kitabercerita.databinding.ActivityProfileViewBinding;
+import com.example.kitabercerita.model.User;
 import com.example.kitabercerita.utility.CommentAdapter;
 import com.example.kitabercerita.utility.CommentClickListener;
 import com.example.kitabercerita.model.Comment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PostDetailActivity extends AppCompatActivity implements CommentClickListener {
@@ -64,6 +75,7 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
     DatabaseReference rf;
     private Button gotoInsertCommentBtn;
     CommentAdapter adapter;
+    StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +104,34 @@ public class PostDetailActivity extends AppCompatActivity implements CommentClic
                 descriptionTxt.setText(snapshot.child("postDescription").getValue(String.class));
                 likeCountTxt.setText(snapshot.child("postLikeCount").getValue(Integer.class).toString());
                 commentCountTxt.setText(snapshot.child("postCommentCount").getValue(Integer.class).toString());
+
+                FirebaseDatabase.getInstance().getReference().child("User").child(userPostId[0]).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot userSnapshot) {
+                        String imageId = userSnapshot.child("image").getValue(String.class);
+                        Log.d("image", imageId);
+                        storageReference = FirebaseStorage.getInstance().getReference("images/"+imageId);
+
+                        try {
+                            File localFile = File.createTempFile("tempFile", "");
+                            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                    profileImg.setImageBitmap(bitmap);
+                                    Log.d("image binding", "success " + imageId);
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override

@@ -2,11 +2,15 @@ package com.example.kitabercerita;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.kitabercerita.databinding.ActivityProfileViewBinding;
@@ -33,6 +38,12 @@ public class ProfileViewActivity extends AppCompatActivity {
     ImageView ppIv;
     TextView nameTv, statusTv;
     Button editBtn, logoutBtn;
+
+    Switch LnDSwitch;
+    Boolean nightMODE;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private Fragment activeFragment;
@@ -76,6 +87,11 @@ public class ProfileViewActivity extends AppCompatActivity {
         editBtn = findViewById(R.id.editProfileBtn);
         logoutBtn = findViewById(R.id.logoutBtn);
 
+        LnDSwitch = findViewById(R.id.LnDSwitch);
+
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +107,29 @@ public class ProfileViewActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
+            }
+        });
+        nightMODE = sharedPreferences.getBoolean("nightMode", false);
+        LnDSwitch.setChecked(nightMODE);
+
+
+        if(nightMODE){
+            LnDSwitch.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        LnDSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(nightMODE){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("nightMode", false);
+                }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("nightMode", true);
+                }
+                editor.apply();
             }
         });
 

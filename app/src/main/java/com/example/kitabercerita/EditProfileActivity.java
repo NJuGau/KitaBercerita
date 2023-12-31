@@ -43,7 +43,7 @@ import java.util.Map;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    Button saveBtn, uploadBtn;
+    Button saveBtn, uploadBtn, selectBtn;
     EditText emailEt, passEt, phoNumEt, statusEt;
     TextView nameTv, backBtn;
     String email, pass, phoNum, status, uname, image;
@@ -66,6 +66,7 @@ public class EditProfileActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.backBtn);
         saveBtn = findViewById(R.id.saveBtn);
         uploadBtn = findViewById(R.id.uploadBtn);
+        selectBtn = findViewById(R.id.selectBtn);
 
         imageView = findViewById(R.id.imageView);
         nameTv = findViewById(R.id.nameTv);
@@ -88,7 +89,6 @@ public class EditProfileActivity extends AppCompatActivity {
         rf = db.getReference().child("User").child(uname);
 
         //tampilkan foto pp
-        imageView = findViewById(R.id.imageView);
         image = u.getImage();
         storageReference = FirebaseStorage.getInstance().getReference("images/"+image);
 
@@ -106,7 +106,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         //change foto pp
-        binding.imageView.setOnClickListener(new View.OnClickListener() {
+        selectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkStoragePermission();

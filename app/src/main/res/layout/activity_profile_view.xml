@@ -8,18 +8,12 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <!--  profile picture, nama, status  -->
-    <!--  button: edit profile, logout  -->
-
-    <!--  edit profile: pake popup  -->
-    <!--  logout -> clear cache, intent to login page  -->
-
     <ImageView
         android:id="@+id/ppIv"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_weight="1"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
         />
 
     <TextView
@@ -29,9 +23,8 @@
         android:layout_weight="0.4"
         android:text="Nama"
         android:textSize="24sp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         />
-<!--nama ambil dari database-->
 
     <TextView
         android:id="@+id/statusTv"
@@ -41,7 +34,6 @@
         android:text="Status"
         android:textSize="16sp"
         android:layout_marginTop="12dp"/>
-    <!-- ambil dr database jg -->
 
     <Switch
         android:id="@+id/LnDSwitch"

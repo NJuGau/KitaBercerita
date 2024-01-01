@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    android:layout_height="match_parent">
 
     <!-- Your FrameLayout (Fragment Container) -->
     <FrameLayout
@@ -35,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_border"
                 android:drawableStart="@drawable/searchlogo"
+                android:textColor="@color/black"
                 android:hint="Cari"
                 android:minHeight="48dp"
                 android:paddingVertical="10dp" />
@@ -50,7 +50,6 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="25dp"
                 android:text="Top 3"
-                android:textColor="@color/black"
                 android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView

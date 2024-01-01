@@ -175,7 +175,7 @@ public class SearchPostActivity extends AppCompatActivity implements PostClickLi
                     allPost.add(new Post(postId, postDescription, postUserId, postLikeCount, postCommentCount));
                 }
                 Collections.sort(allPost);
-                for(int i = 0; i < 2 && i < allPost.size(); i++){
+                for(int i = 0; i < 3 && i < allPost.size(); i++){
                     postList.add(allPost.get(i));
                 }
                 adapter.notifyDataSetChanged();

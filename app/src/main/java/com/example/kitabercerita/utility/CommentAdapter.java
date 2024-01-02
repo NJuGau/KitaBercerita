@@ -34,6 +34,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     StorageReference storageReference;
 
     public CommentAdapter(Context context, List<Comment> comments, CommentClickListener listener){
+        super();
         this.context = context;
         this.comments = comments;
         this.clickListener = listener;
